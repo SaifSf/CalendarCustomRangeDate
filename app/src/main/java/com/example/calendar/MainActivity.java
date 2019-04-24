@@ -1,8 +1,13 @@
 package com.example.calendar;
 
+import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,14 +29,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        calendarView = findViewById(R.id.calendar);
-        date_start = findViewById(R.id.tv_start_date);
-        date_end = findViewById(R.id.tv_end_date);
-        year = findViewById(R.id.dateOfyear);
+
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View calendarDialogView = inflater.inflate(R.layout.alert_layout, null);
+        calendarView = calendarDialogView.findViewById(R.id.calendar);
+        date_start = calendarDialogView.findViewById(R.id.tv_start_date);
+        date_end = calendarDialogView.findViewById(R.id.tv_end_date);
+        year = calendarDialogView.findViewById(R.id.dateOfyear);
         calendar = Calendar.getInstance(TimeZone.getDefault());
         final String currentYear = String.valueOf(calendar.get(Calendar.YEAR));
         Toast.makeText(this, "Today's Date: " + currentYear, Toast.LENGTH_SHORT).show();
         year.setText(currentYear);
+        dialogBuilder.create();
+        dialogBuilder.setView(calendarDialogView);
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setLayout(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
 
         calendarView.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
             @Override

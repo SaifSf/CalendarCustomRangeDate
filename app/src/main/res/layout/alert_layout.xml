@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.sfs.customcalendar.CustomView.DateRangeCalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:calendar_tag="Test"
+        app:default_date_color="#666666"
+        app:disable_date_color="#ABABAB"
+        app:editable="true"
+        app:enable_past_date="true"
+        app:header_bg="@drawable/calendar_header"
+        app:range_color="@color/range_bg_color_app"
+        app:selected_date_circle_color="@color/selected_date_circle_color_app"
+        app:text_size_date="12sp"
+        app:title_color="@color/tilte_mois"
+        app:week_offset="0">
+
+    </com.sfs.customcalendar.CustomView.DateRangeCalendarView>
+
+</RelativeLayout>
