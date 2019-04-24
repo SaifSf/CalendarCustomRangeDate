@@ -72,7 +72,7 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendarAdapterListener.onConfirmClick();
+                calendarAdapterListener.onConfirmClick(mStartDate, mEndDate);
             }
         });
 
@@ -143,14 +143,8 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
         }
 
         @Override
-        public void onConfirmClick() {
-            if (mStartDate == null && mEndDate == null) {
-                calendarListener.onCancelClick();
-            } else if (mStartDate != null && mEndDate != null) {
-                calendarListener.onDateRangeSelected(mStartDate, mEndDate);
-            } else {
-                calendarListener.onFirstDateSelected(mStartDate);
-            }
+        public void onConfirmClick(Calendar startDate, Calendar endDate) {
+            calendarListener.onConfirmClick(mStartDate, mEndDate);
         }
     };
 
