@@ -1,8 +1,8 @@
 package com.example.calendar;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DateRangeCalendarView calendarView;
     private Calendar calendar;
-    private String StartDate;
+    private  String StartDate;
     private String EndDate;
     private TextView date_start, date_end, year;
 
@@ -36,17 +36,31 @@ public class MainActivity extends AppCompatActivity {
         calendarView.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
             @Override
             public void onFirstDateSelected(Calendar startDate) {
+                Toast.makeText(MainActivity.this, "onFirstDateSelected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDateRangeSelected(Calendar startDate, Calendar endDate) {
-                EndDate=endDate.getTime().toString();
-                StartDate=startDate.getTime().toString();
-                date_start.setText(StartDate.substring(0,3)+", "+StartDate.substring(4,10));
-                date_end.setText(EndDate.substring(0,3)+", "+EndDate.substring(4,10));
+                EndDate = endDate.getTime().toString();
+                StartDate = startDate.getTime().toString();
+                date_start.setText(StartDate.substring(0, 3) + ", " + StartDate.substring(4, 10));
+                date_end.setText(EndDate.substring(0, 3) + ", " + EndDate.substring(4, 10));
+                Toast.makeText(MainActivity.this, "onDateRangeSelected", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelClick() {
 
             }
+
+            @Override
+            public void onConfirmClick() {
+
+            }
+
+
         });
+
 
     }
 }

@@ -29,6 +29,9 @@ public class DateRangeCalendarView extends LinearLayout {
         void onFirstDateSelected(Calendar startDate);
 
         void onDateRangeSelected(Calendar startDate, Calendar endDate);
+
+        void onCancelClick();
+        void onConfirmClick();
     }
 
     private CustomTextView tvYearTitle;

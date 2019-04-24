@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sfs.customcalendar.Model.CalendarStyleAttr;
 import com.sfs.customcalendar.R;
@@ -23,6 +24,10 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
     private DateRangeCalendarView.CalendarListener calendarListener;
     private DateRangeCalendarManager dateRangeCalendarManager;
     private Handler mHandler;
+
+    private TextView btnCancel, btnOk;
+
+    private Calendar mStartDate, mEndDate;
 
     public AdapterEventCalendarMonths(Context mContext, List<Calendar> list, CalendarStyleAttr calendarStyleAttr) {
         this.mContext = mContext;
@@ -53,6 +58,23 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
         DateRangeMonthView dateRangeMonthView = layout.findViewById(R.id.cvEventCalendarView);
         dateRangeMonthView.drawCalendarForMonth(calendarStyleAttr, getCurrentMonth(modelObject), dateRangeCalendarManager);
         dateRangeMonthView.setCalendarListener(calendarAdapterListener);
+
+        btnCancel = layout.findViewById(R.id.cancel);
+        btnOk = layout.findViewById(R.id.ok);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarAdapterListener.onCancelClick();
+            }
+        });
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarAdapterListener.onConfirmClick();
+            }
+        });
 
         container.addView(layout);
         return layout;
@@ -94,6 +116,8 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
 
 
             if (calendarListener != null) {
+                mStartDate = startDate;
+                mEndDate = null;
                 calendarListener.onFirstDateSelected(startDate);
             }
         }
@@ -107,7 +131,25 @@ public class AdapterEventCalendarMonths extends PagerAdapter {
                 }
             }, 50);
             if (calendarListener != null) {
+                mStartDate = startDate;
+                mEndDate = endDate;
                 calendarListener.onDateRangeSelected(startDate, endDate);
+            }
+        }
+
+        @Override
+        public void onCancelClick() {
+            calendarListener.onCancelClick();
+        }
+
+        @Override
+        public void onConfirmClick() {
+            if (mStartDate == null && mEndDate == null) {
+                calendarListener.onCancelClick();
+            } else if (mStartDate != null && mEndDate != null) {
+                calendarListener.onDateRangeSelected(mStartDate, mEndDate);
+            } else {
+                calendarListener.onFirstDateSelected(mStartDate);
             }
         }
     };

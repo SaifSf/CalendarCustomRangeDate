@@ -3,6 +3,7 @@
     android:id="@+id/rlHeaderCalendar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#ffffff"
     android:paddingBottom="@dimen/dateTitlePaddingBottom">
 
 
