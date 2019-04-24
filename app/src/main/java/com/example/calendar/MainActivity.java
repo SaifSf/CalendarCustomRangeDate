@@ -54,8 +54,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onConfirmClick() {
-
+            public void onConfirmClick(Calendar mStartDate, Calendar mEndDate) {
+                if (mStartDate == null && mEndDate == null) {
+                    onCancelClick();
+                } else if (mStartDate != null && mEndDate != null) {
+                    onDateRangeSelected(mStartDate, mEndDate);
+                } else {
+                    onFirstDateSelected(mStartDate);
+                }
             }
 
 
